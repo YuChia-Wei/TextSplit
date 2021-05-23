@@ -24,6 +24,15 @@ namespace TextSplit
         }
 
         [TestMethod]
+        public void ont_line_have_11_chtString_isNotFull()
+        {
+            var stringLineCount = new StringLineCount();
+            var actual = stringLineCount.IsFull("一二三四五六七八九十一");
+            var expected = false;
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
         public void ont_line_have_12_chtString_isFull()
         {
             var stringLineCount = new StringLineCount();
@@ -46,7 +55,19 @@ namespace TextSplit
     {
         public bool IsFull(string inputString)
         {
-            return Encoding.Default.GetBytes(inputString).Length >= 24;
+            var charCount = 0;
+            foreach (var c in inputString.ToCharArray())
+            {
+                var s = c.ToString();
+                if (Encoding.GetEncoding("utf-8").GetBytes(s).Length > 1)
+                {
+                    charCount++;
+                }
+
+                charCount++;
+            }
+
+            return charCount >= 24;
         }
     }
 }
