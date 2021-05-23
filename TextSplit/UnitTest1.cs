@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -64,19 +65,12 @@ namespace TextSplit
     {
         public bool IsFull(string inputString)
         {
-            var charCount = 0;
-            foreach (var c in inputString.ToCharArray())
-            {
-                var s = c.ToString();
-                if (Encoding.GetEncoding("utf-8").GetBytes(s).Length > 1)
-                {
-                    charCount++;
-                }
+            return inputString.ToCharArray().Sum(c => IsChtString(c) ? 2 : 1) >= 24;
+        }
 
-                charCount++;
-            }
-
-            return charCount >= 24;
+        private static bool IsChtString(char c)
+        {
+            return Encoding.GetEncoding("utf-8").GetBytes(c.ToString()).Length > 1;
         }
     }
 }
