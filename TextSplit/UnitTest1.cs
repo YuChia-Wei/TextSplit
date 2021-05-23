@@ -1,3 +1,4 @@
+using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace TextSplit
@@ -23,6 +24,15 @@ namespace TextSplit
         }
 
         [TestMethod]
+        public void ont_line_have_12_chtString_isFull()
+        {
+            var stringLineCount = new StringLineCount();
+            var actual = stringLineCount.IsFull("一二三四五六七八九十一二");
+            var expected = true;
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
         public void ont_line_have_23_engString_isNotFull()
         {
             var stringLineCount = new StringLineCount();
@@ -36,7 +46,7 @@ namespace TextSplit
     {
         public bool IsFull(string inputString)
         {
-            return inputString.Length >= 24;
+            return Encoding.Default.GetBytes(inputString).Length >= 24;
         }
     }
 }
