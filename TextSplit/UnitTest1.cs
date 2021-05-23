@@ -42,10 +42,19 @@ namespace TextSplit
         }
 
         [TestMethod]
+        public void ont_line_have_23_engString_and_1_chtString_isFull()
+        {
+            var stringLineCount = new StringLineCount();
+            var actual = stringLineCount.IsFull(_engLength24.Remove(23) + "中");
+            var expected = true;
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
         public void ont_line_have_23_engString_isNotFull()
         {
             var stringLineCount = new StringLineCount();
-            var actual = stringLineCount.IsFull(_engLength24.Remove(1));
+            var actual = stringLineCount.IsFull(_engLength24.Remove(23));
             var expected = false;
             Assert.AreEqual(expected, actual);
         }
