@@ -21,13 +21,22 @@ namespace TextSplit
             var expected = true;
             Assert.AreEqual(expected, actual);
         }
+
+        [TestMethod]
+        public void ont_line_have_23_engString_isNotFull()
+        {
+            var stringLineCount = new StringLineCount();
+            var actual = stringLineCount.IsFull(_engLength24.Remove(1));
+            var expected = false;
+            Assert.AreEqual(expected, actual);
+        }
     }
 
     public class StringLineCount
     {
         public bool IsFull(string inputString)
         {
-            return true;
+            return inputString.Length >= 24;
         }
     }
 }
